@@ -44,15 +44,14 @@ void dgemm_transpose(double *a, double *b, double *c, int n)
 void dgemm_block(double *a, double *b, double *c, int n)
 {
     int i, j, k;
-    double frst[3];
     
     for (i = 0; i < n; i++){
 	for (k = 0; k < n; k++){
 	    for (j = 0; j < n; j++){
-		frst[0] = *(a + i * n + k) * *(b + k * n + j);
-		frst[1] = *(a + i +1 * n + k) * *(b + k + 1 * n + j);
-		frst[2] = *(a + i * n + k + 1) * *(b + k * n + j + 1);
-		frst[3] = *(a + i + 1 * n + k + 1) * *(b + k + 1 * n + j + 1);
+		*(c + i * n + j) = *(a + i * n + k) * *(b + k * n + j);
+		*(c + i + 1 * n + j) = *(a + i +1 * n + k) * *(b + k + 1 * n + j);
+		*(c + i * n + j + 1) = *(a + i * n + k + 1) * *(b + k * n + j + 1);
+		*(c + i + 1 * n + j + 1) = *(a + i + 1 * n + k + 1) * *(b + k + 1 * n + j + 1);
 	    }
 	}
     }
@@ -61,7 +60,6 @@ void dgemm_block(double *a, double *b, double *c, int n)
 void init_matrix(double *a, double *b, double *c, int n)
 {
 	int i, j, k;
-
 	for (i = 0; i < n; i++) {
 		for (j = 0; j < n; j++) {
 			for (k = 0; k < n; k++) {
